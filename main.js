@@ -1,5 +1,5 @@
 const dinput = document.getElementById("domain")
-const domainsUrl = "https://raw.githubusercontent.com/StacikM/sophisticated-domain-name-system/domains"
+const domainsUrl = "https://raw.githubusercontent.com/StacikM/sophisticated-domain-name-system/refs/heads/main/domains/"
 const status = document.getElementById("status")
 
 function navigate() {
