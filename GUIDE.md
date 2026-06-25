@@ -42,7 +42,10 @@ Valid examples:
 }
 
 ## How to know if the user came on my website from SDNS
-When we send a user on your site, they will always have ?sdns=(domain) in their location bar
+When we send a user on your site, they will always have ?sdns=(domain) in params
+
+## How to redirect my user immediately?
+Redirect your user to https://sdns.stacik.dev?goto=(domain)
 
 ## Rules
 If your requested domain is offensive it will be rejected

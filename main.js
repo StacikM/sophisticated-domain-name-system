@@ -3,13 +3,26 @@ const domainsUrl = "https://raw.githubusercontent.com/StacikM/sophisticated-doma
 const status = document.getElementById("status")
 
 async function navigate() {
-    const yes = await getIpFromDomain(dinput.value)
+    const yes = await getIpFromDomain(dinput.value);
 
     if (yes != "nono") {
         console.log("http://" + yes + "?sdns=" + dinput.value)
         window.location.href = "http://" + yes + "?sdns=" + dinput.value
     }
 }
+
+const params = new URLSearchParams(window.location.search);
+
+async function handleRedirect() {
+    const value = params.get("goto");
+    if (value != undefined) {
+        const yes = await getIpFromDomain(value);
+        console.log("param detected");
+        window.location.href = "http://" + yes + "?sdns=" + value;
+    }
+}
+
+handleRedirect();
 
 async function getIpFromDomain(domain) {
     const res = await fetch(domainsUrl + "/" + domain + ".json") // this gotta be the worst code ive wrotten in my whole life
