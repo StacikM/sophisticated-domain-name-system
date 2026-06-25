@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-DNS (Sophisticated Domain Name System)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            padding: 2rem;
+        }
+        .domain {
+            background: white;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sophisticated Domain Name System Registrar</h1>
+    </header>
+
+    <main>
+        <p>This is the page where all registered domains appear</p>
+
+        <div id="domains">Loading domains...</div>
+        <a href="index.html">Go Back</a>
+    </main>
+
+    <script>
+        const blabla = "https://api.github.com/repos/StacikM/sophisticated-domain-name-system/contents/domains";
+
+        async function loadDomains() {
+            try {
+                const res = await fetch(blabla);
+                const data = await res.json();
+
+                const container = document.getElementById("domains");
+                container.innerHTML = "";
+
+                if (!Array.isArray(data)) {
+                    container.innerHTML = "Failed to load domains.";
+                    return;
+                }
+
+                data.forEach(file => {
+                    if (file.type === "file") {
+                        const div = document.createElement("div");
+                        div.className = "domain";
+
+                        const cleanName = file.name.replace(/\.json$/, "");
+                        
+                        const name = document.createElement("span");
+                        name.textContent = cleanName;
+
+                        const link = document.createElement("a");
+                        link.href = file.download_url;
+                        link.textContent = "View Raw JSON";
+                        link.target = "_blank";
+
+                        div.appendChild(name);
+                        div.appendChild(link);
+
+                        container.appendChild(div);
+                    }
+                });
+
+            } catch (err) {
+                document.getElementById("domains").innerText = "Error loading domains: " + err.message;
+            }
+        }
+
+        loadDomains();
+    </script>
+</body>
+</html>
