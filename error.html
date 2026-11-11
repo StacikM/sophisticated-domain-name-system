@@ -27,8 +27,14 @@
         <h1>Sophisticated Domain Name System</h1>
     </header>
     <h1>Website Not Found</h1>
-    <p>You were redirected to this page because the domain you tried to navigate to, no longer exists in our database</p>
+    <p id="error">You were redirected to this page because the domain you tried to navigate to, no longer exists in our database</p>
     <p>It might have been removed</p>
     <a href="index.html">Home</a>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("banned") == "true") {
+            document.getElementById("error").textContent = "You were redirected to this page because the domain you tried to navigate to, has been blocked while we investigate it"
+        }
+    </script>
 </body>
 </html>

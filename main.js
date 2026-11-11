@@ -18,6 +18,7 @@ async function handleRedirect() {
     if (value != undefined) {
         const yes = await getIpFromDomain(value);
         if (await yes == "nono") { location.href = "error.html"; return; }
+        else if (await yes == "banned") { location.href = "error.html?banned=true"; return; }
         console.log("param detected");
         window.location.href = "http://" + yes + "?sdns=" + value;
     }
@@ -40,6 +41,12 @@ async function getIpFromDomain(domain) {
         status.style.color = "red"
         status.textContent = "Bad config"
         return "nono"
+    }
+
+    if (json.moderated) {
+        status.style.color = "red"
+        status.textContent = "This domain has been blocked for investigation. Please try again later"
+        return "banned"
     }
 
     return json.ip
