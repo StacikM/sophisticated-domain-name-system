@@ -17,7 +17,7 @@ async function handleRedirect() {
     const value = params.get("goto");
     if (value != undefined) {
         const yes = await getIpFromDomain(value);
-        if (yes == "nono") { location.href = "error.html"; return; }
+        if (await yes == "nono") { location.href = "error.html"; return; }
         console.log("param detected");
         window.location.href = "http://" + yes + "?sdns=" + value;
     }
