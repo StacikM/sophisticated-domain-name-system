@@ -5,7 +5,7 @@ const status = document.getElementById("status")
 async function navigate() {
     const yes = await getIpFromDomain(dinput.value);
 
-    if (yes != "nono" || yes != "banned") {
+    if (yes != "nono" && yes != "banned") {
         console.log("http://" + yes + "?sdns=" + dinput.value)
         window.location.href = "http://" + yes + "?sdns=" + dinput.value
     }
